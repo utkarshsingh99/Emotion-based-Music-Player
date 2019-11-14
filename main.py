@@ -39,20 +39,22 @@ def song():
 			file.save(filename)
 			path=filename
 			results = paralleldots.facial_emotion( path )
-			print(results['facial_emotion'][0])
+			# print(results['facial_emotion'][0])
 			genre = results['facial_emotion'][0]['tag']
 			# cur = mysql.connection.cursor()
-			cursor.execute("select * from songs where mood = %s;", ('neutral',))
+			cursor.execute("select * from songs where mood = %s;", (genre,))
 			a=[]
 			for song in cursor:
 				a.append(song[0])
+				print(song[0])
+				print(song[1])
 			result=random.choice(a)
 			print(result)
 
 			# cursor.close()
 			# mysql.connection.commit()
 			# cur.close()
-			return Response(result)
+			return render_template("song.html", songname= result)
 	else:
 		return Response(500)
 
