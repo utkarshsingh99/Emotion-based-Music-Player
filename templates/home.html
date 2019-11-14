@@ -22,7 +22,7 @@
 	<!-- <button id="snap">Snap Photo</button> -->
 	<!-- <canvas id="canvas" width="640" height="480"></canvas> -->
 	<div id="tracks-container"></div>
-	<form method="POST" action="/song" enctype="multipart/form-data">
+	<form method="POST" id = "myForm" action="/song" enctype="multipart/form-data">
 		<input id="myFileInput" name="file" type="file" accept="image/*;" capture="camera">
 		<!-- <input type="file" name="file"  accept="image/*"> -->
 		<input type="submit" id="snap" >Submit</button>
@@ -35,9 +35,17 @@
 
   <script type="text/javascript">
   	// const tracksTemplateSource = document.getElementById('tracks-template').innerHTML;
-
-const value = 'we own it';
-const getTopTracks = $.get('https://api.napster.com/v2.2/search	?apikey=YTE3NWVjMzEtMzJlNy00MTFhLWJmNjEtMjMxMmFhOGIyNDVk&type=track&query='+value);
+  	$('#myForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        url:'/song',
+        type:'post',
+        data:$('#myForm').serialize(),
+        success:function(data){
+            //whatever you wanna do after the form is successfully submitted
+            console.log(data)
+            const value = data;
+		const getTopTracks = $.get('https://api.napster.com/v2.2/search	?apikey=YTE3NWVjMzEtMzJlNy00MTFhLWJmNjEtMjMxMmFhOGIyNDVk&type=track&query='+value);
 
 getTopTracks
   .then((response) => {
@@ -53,5 +61,10 @@ getTopTracks
   			`
     	$('#tracks-container').html(string);
   	})
+        }
+    });
+});
+
+
   </script>
 </html>
