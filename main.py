@@ -15,6 +15,8 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 cnx = mysql.connector.connect(user = 'root', password = '', host = '127.0.0.1', database ='moodplayer')
 cnx.close()
 
+
+
 @app.route("/")
 def home():
 	# path = "/home/utkarsh/Pictures/parallel.jpg"
@@ -42,8 +44,10 @@ def song():
 	    	file.save(filename)
 
 	    	# Send the image to the API
-
-	    	return Response(200)
+	    	path = filename
+	    	results = paralleldots.facial_emotion( path )
+	    	print(results['facial_emotion'][0])
+	    	return Response(results['facial_emotion'][0])
 	else:
 		return Response(500)
 
