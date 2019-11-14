@@ -3,6 +3,7 @@ from flask import *
 import paralleldots
 from werkzeug.utils import secure_filename
 import os
+import mysql.connector
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'madmajksgdckua'
@@ -10,6 +11,9 @@ UPLOAD_FOLDER = '/static'
 paralleldots.set_api_key("Kyy830QxC01AsSg9Y4eYFtQo5JYAK6l7zc9jIJ1oNJ8")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+cnx = mysql.connector.connect(user = 'thebug', password = 'password', host = '127.0.0.1', database = ='moodplayer')
+cnx.close()
 
 @app.route("/")
 def home():
@@ -38,7 +42,7 @@ def song():
 	    	file.save(filename)
 
 	    	# Send the image to the API
-	    	
+
 	    	return Response(200)
 	else:
 		return Response(500)
