@@ -12,7 +12,7 @@ paralleldots.set_api_key("Kyy830QxC01AsSg9Y4eYFtQo5JYAK6l7zc9jIJ1oNJ8")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-cnx = mysql.connector.connect(user = 'thebug', password = 'password', host = '127.0.0.1', database = ='moodplayer')
+cnx = mysql.connector.connect(user = 'root', password = '', host = '127.0.0.1', database ='moodplayer')
 cnx.close()
 
 @app.route("/")
