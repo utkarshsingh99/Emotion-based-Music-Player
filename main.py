@@ -6,15 +6,19 @@ import os
 import mysql.connector
 import random
 
+from keys import *
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'madmajksgdckua'
 UPLOAD_FOLDER = '/static'
-paralleldots.set_api_key("Kyy830QxC01AsSg9Y4eYFtQo5JYAK6l7zc9jIJ1oNJ8")
+paralleldots.set_api_key(paralleldots_api_key)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-cnx = mysql.connector.connect(user = 'root', password = '1qaz2wsx', host = '127.0.0.1', database ='moodplayer')
+cnx = mysql.connector.connect(user = user, password = password, host = '127.0.0.1', database ='moodplayer')
 cursor = cnx.cursor()
+
+print(message)
 
 @app.route("/")
 def home():
@@ -39,20 +43,22 @@ def song():
 			file.save(filename)
 			path=filename
 			results = paralleldots.facial_emotion( path )
-			print(results['facial_emotion'][0])
+			# print(results['facial_emotion'][0])
 			genre = results['facial_emotion'][0]['tag']
 			cur = mysql.connection.cursor()
 			cursor.execute("select * from songs where mood = %s;", ('neutral',))
 			a=[]
 			for song in cursor:
 				a.append(song[0])
+				print(song[0])
+				print(song[1])
 			result=random.choice(a)
 			print(result)
 
 			# cursor.close()
 			# mysql.connection.commit()
 			# cur.close()
-			return Response(result)
+			return render_template("song.html", songname= result)
 	else:
 		return Response(500)
 
