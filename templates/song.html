@@ -18,10 +18,10 @@
   </head>
 
   <body>
-    <h1> Personalised Playlist</h1>
+    <h1> Personalized Playlist</h1>
     <h4 id="song">{{songname}}</h4>
-    <p> We have predicted your mood and as we all know that music is your best friend that never cheats, according to us, you must hear, {{songname}}.</p>
-      <marquee><div id="tracks-container"></div></marquee>
+    <p> Hi <b>{{name}}!</b> You seem <b>{{mood}}</b>. What do you think of the song <b>{{songname}}</b>?</p>
+      <div id="tracks-container"></div>
   </body>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
       crossorigin="anonymous"></script>
@@ -33,8 +33,8 @@
       var value = data.text();
       value=value.trim()
       value=value.replace(new RegExp(' ', 'g'), '%20')
-      console.log(value)
-      const getTopTracks = $.get('https://api.napster.com/v2.2/search	?apikey=YTE3NWVjMzEtMzJlNy00MTFhLWJmNjEtMjMxMmFhOGIyNDVk&type=track&query=' + value);
+      console.log('Song should be here',value)
+      const getTopTracks = $.get('https://api.napster.com/v2.2/search?apikey=YTE3NWVjMzEtMzJlNy00MTFhLWJmNjEtMjMxMmFhOGIyNDVk&type=track&query=' + value);
 
       getTopTracks
         .then((response) => {
@@ -43,7 +43,7 @@
           var string = `
       			<div data-track-id="${track.albumId}" style="background-image:url(http://direct.rhapsody.com/imageserver/v2/albums/${track.albumId}/images/300x300.jpg)" class="cover">
       			<div class=content-name>${track.name}</div>
-      			<audio controls class= "audio">
+      			<audio controls class= "audio" autoplay>
         			<source src="${track.previewURL}" type="audio/mpeg">
       			</audio>
       			</div>

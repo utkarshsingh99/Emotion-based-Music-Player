@@ -4,14 +4,14 @@ import paralleldots
 from werkzeug.utils import secure_filename
 import os
 import mysql.connector
-import random
+from werkzeug.datastructures import ImmutableMultiDict
 
 from keys import *
+from helpers.songqueries import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'madmajksgdckua'
 UPLOAD_FOLDER = '/static'
-paralleldots.set_api_key(paralleldots_api_key)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -28,35 +28,37 @@ def home():
 @app.route("/song", methods = ['GET', 'POST'])
 def song():
 	if request.method == 'POST':
+		# Extracting the data to retrieve username
+		data = dict(request.form)
 		if 'file' not in request.files:
 			flash('No file part')
 			return redirect(request.url)
+		
+		# Extracting username and file from the POST request
+		username = data['username']
 		file = request.files['file']
+
 		if file == '':
 			flash('No selected file')
 			return redirect(request.url)
 		if file:
+			print('Username Received is: ',username)
 			filename = secure_filename(file.filename)
 			print(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
 			file.save(filename)
 			path=filename
-			results = paralleldots.facial_emotion( path )
-			# print(results['facial_emotion'][0])
-			genre = results['facial_emotion'][0]['tag']
-			cur = mysql.connection.cursor()
-			cursor.execute("select * from songs where mood = %s;", ('neutral',))
-			a=[]
-			for song in cursor:
-				a.append(song[0])
-				print(song[0])
-				print(song[1])
-			result=random.choice(a)
-			print(result)
 
-			# cursor.close()
-			# mysql.connection.commit()
-			# cur.close()
-			return render_template("song.html", songname= result)
+			mood = find_mood( path )
+
+			mood_id = find_mood_id ( mood )			
+
+			(user_id, name) = find_user_id (username )
+			
+			song_id = find_song_id ( mood_id, user_id )
+
+			songname = find_song ( song_id )
+
+			return render_template("song.html", songname=songname, mood = mood, song_id = song_id, name = name)
 	else:
 		return Response(500)
 
