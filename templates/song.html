@@ -3,11 +3,53 @@
   <head>
     <meta charset="utf-8">
     <title>About Flask</title>
+  <style>
+    .cover {
+      background-size: cover;
+      width: 300px;
+      height: 300px;
+      display: inline-block;
+      margin: 10px;
+      float: left;
+      border: 3px solid black;
+      position: relative;
+    }
+  </style>
   </head>
+
   <body>
-    <h1> About Flask </h1>
-    <p> Flask is a micro web framework written in Python.</p>
-    <p> Applications that use the Flask framework include Pinterest,
-      LinkedIn, and the community web page for Flask itself.</p>
+    <h1> Personalized Playlist</h1>
+    <h4 id="song">{{songname}}</h4>
+    <p> Hi <b>{{name}}!</b> You seem <b>{{mood}}</b>. What do you think of the song <b>{{songname}}</b>?</p>
+      <div id="tracks-container"></div>
   </body>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"></script>
+    
+    <script type="text/javascript">
+      // const tracksTemplateSource = document.getElementById('tracks-template').innerHTML;
+      const data = $('#song')
+      console.log(data.text())
+      var value = data.text();
+      value=value.trim()
+      value=value.replace(new RegExp(' ', 'g'), '%20')
+      console.log('Song should be here',value)
+      const getTopTracks = $.get('https://api.napster.com/v2.2/search?apikey=YTE3NWVjMzEtMzJlNy00MTFhLWJmNjEtMjMxMmFhOGIyNDVk&type=track&query=' + value);
+
+      getTopTracks
+        .then((response) => {
+          var track = response.search.data.tracks[0]
+          console.log(track)
+          var string = `
+      			<div data-track-id="${track.albumId}" style="background-image:url(http://direct.rhapsody.com/imageserver/v2/albums/${track.albumId}/images/300x300.jpg)" class="cover">
+      			<div class=content-name>${track.name}</div>
+      			<audio controls class= "audio" autoplay>
+        			<source src="${track.previewURL}" type="audio/mpeg">
+      			</audio>
+      			</div>
+      			`
+          $('#tracks-container').html(string);
+        });
+
+    </script>
 </html>

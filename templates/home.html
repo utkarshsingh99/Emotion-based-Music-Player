@@ -9,34 +9,14 @@
     <!-- <video id="video" width="640" height="480" autoplay></video> -->
 	<!-- <button id="snap">Snap Photo</button> -->
 	<!-- <canvas id="canvas" width="640" height="480"></canvas> -->
-	<form method="POST" action="/song" enctype="multipart/form-data">
-		<!-- <input id="myFileInput" type="file" accept="image/*;" capture="camera"> -->
-		<input type="file" name="file"  accept="image/*">
+
+  <form method="POST" id = "myForm" action="/song" enctype="multipart/form-data">
+    <input id="username" name="username" type="text">
+		<input id="myFileInput" name="file" type="file" accept="image/*;" capture="camera">
+		<!-- <input type="file" name="file"  accept="image/*"> -->
 		<input type="submit" id="snap" >Submit</button>
 	</form>
     <p> It is Fun! </p>
+
   </body>
-  <script type="text/javascript">
-  	var video = document.getElementById('video');
-
-	// Get access to the camera!
-	if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-	    // Not adding `{ audio: true }` since we only want video now
-	    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-	        //video.src = window.URL.createObjectURL(stream);
-	        video.srcObject = stream;
-	        video.play();
-	    });
-	}
-
-	var canvas = document.getElementById('canvas');
-	var context = canvas.getContext('2d');
-	var video = document.getElementById('video');
-	
-
-	// Trigger photo take
-	document.getElementById("snap").addEventListener("click", function() {
-		context.drawImage(video, 0, 0, 640, 480);
-	});
-  </script>
 </html>
