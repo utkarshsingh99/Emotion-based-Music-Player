@@ -4,24 +4,11 @@
     <meta charset="utf-8">
     <title>Mood Swong</title>
   </head>
-  <style>
-  	.cover {
-  background-size: cover;
-  width: 300px;
-  height: 300px;
-  display: inline-block;
-  margin: 10px;
-  float: left;
-  border: 3px solid black; 
-  position: relative;
-}
-  </style>
   <body>
     <h1> Just be Yourself! </h1>
     <!-- <video id="video" width="640" height="480" autoplay></video> -->
 	<!-- <button id="snap">Snap Photo</button> -->
 	<!-- <canvas id="canvas" width="640" height="480"></canvas> -->
-	<div id="tracks-container"></div>
 	<form method="POST" id = "myForm" action="/song" enctype="multipart/form-data">
 		<input id="myFileInput" name="file" type="file" accept="image/*;" capture="camera">
 		<!-- <input type="file" name="file"  accept="image/*"> -->
@@ -30,41 +17,4 @@
     <p> It is Fun! </p>
 
   </body>
-
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-
-  <script type="text/javascript">
-  	// const tracksTemplateSource = document.getElementById('tracks-template').innerHTML;
-  	$('#myForm').submit(function(e){
-    e.preventDefault();
-    $.ajax({
-        url:'/song',
-        type:'post',
-        data:$('#myForm').serialize(),
-        success:function(data){
-            //whatever you wanna do after the form is successfully submitted
-            console.log(data)
-            const value = data;
-		const getTopTracks = $.get('https://api.napster.com/v2.2/search	?apikey=YTE3NWVjMzEtMzJlNy00MTFhLWJmNjEtMjMxMmFhOGIyNDVk&type=track&query='+value);
-
-getTopTracks
-  .then((response) => {
-  	var track = response.search.data.tracks[0]
-  	console.log(track)
-  	var string = `
-  			<div data-track-id="${track.albumId}" style="background-image:url(http://direct.rhapsody.com/imageserver/v2/albums/${track.albumId}/images/300x300.jpg)" class="cover">
-  			<div class=content-name>${track.name}</div>
-  			<audio controls class= "audio">
-    			<source src="${track.previewURL}" type="audio/mpeg">
-  			</audio>
-  			</div>
-  			`
-    	$('#tracks-container').html(string);
-  	})
-        }
-    });
-});
-
-
-  </script>
 </html>
