@@ -13,7 +13,7 @@ paralleldots.set_api_key("Kyy830QxC01AsSg9Y4eYFtQo5JYAK6l7zc9jIJ1oNJ8")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-cnx = mysql.connector.connect(user = 'wanderer', password = 'admin', host = '127.0.0.1', database ='moodplayer')
+cnx = mysql.connector.connect(user = 'root', password = '1qaz2wsx', host = '127.0.0.1', database ='moodplayer')
 cursor = cnx.cursor()
 
 @app.route("/")
@@ -41,7 +41,7 @@ def song():
 			results = paralleldots.facial_emotion( path )
 			print(results['facial_emotion'][0])
 			genre = results['facial_emotion'][0]['tag']
-			# cur = mysql.connection.cursor()
+			cur = mysql.connection.cursor()
 			cursor.execute("select * from songs where mood = %s;", ('neutral',))
 			a=[]
 			for song in cursor:
