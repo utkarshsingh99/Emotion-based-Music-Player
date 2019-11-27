@@ -58,9 +58,33 @@ def song():
 
 			songname = find_song ( song_id )
 
-			return render_template("song.html", songname=songname, mood = mood, song_id = song_id, name = name)
+			return render_template("song.html", songname=songname, mood = mood, song_id = song_id, user_id = user_id, name = name)
 	else:
 		return Response(500)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+	if request.method == 'GET':	
+		return render_template("index.html")
+	else:
+		data = dict(request.form)
+		print('This data? ',data)
+		if all(key in data for key in ('username', 'name', 'email', 'password')):
+			cursor.execute("INSERT INTO users (name, username, email, password) VALUES (%s, %s, %s, %s)", (data['name'], data['username'], data['email'], data['password'], ))
+			cnx.commit()
+			return Response(200)
+		else:
+			return Response(403)
+
+@app.route('/unlike', methods=['GET', 'POST'])
+def unlike():
+	if request.method == 'POST':
+		data = dict(request.form)
+		print('The user did not like the following: ', data)
+		new_song_id = did_not_like(data['user_id'], data['mood'], data['song_id'])
+		songname = find_song ( new_song_id )
+		return Response( songname )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

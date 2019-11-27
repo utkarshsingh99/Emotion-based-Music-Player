@@ -49,17 +49,24 @@ def find_song ( song_id ):
 def find_song_id (mood_id, user_id):
 	# Finding all song_id's that match the user_id and mood_id, and then choosing one from it
 	cursor.execute("select song_id from songs where song_id not in (select song_id from mapmoods where user_id=%s AND mood_id = %s) order by rand()", (user_id, mood_id, ))
-	if cursor.rowcount == 0:
-		cursor.execute("select song_id from mapmoods where user_id=%s AND mood_id = %s) order by rand()", (user_id, mood_id, ))
+	song_id=cursor.fetchall()
+	if cursor.rowcount == 0 or len(song_id)==0:
+		cursor.execute("select song_id from mapmoods where user_id=%s AND mood_id = %s order by rand()", (user_id, mood_id, ))
 		total_length = cursor.fetchall()[0][0]
 		return random.randint(1, total_length)	
-	song_id=cursor.fetchall()[0][0]
+	print(song_id)
+	song_id = song_id[0][0]
 	cursor.execute("insert into mapmoods (user_id, song_id, mood_id) values (%s, %s, %s)", (user_id, song_id, mood_id,))
 	cnx.commit()
 	print('Found song_id', song_id)
 	return song_id
 
-def did_not_like (username, mood, song_id):
-	user_id = find_user_id ( username )
-	cursor.execute("delete from mapmoods where mood_id =%s AND user_id = %s order by rand() limit 1", (mood_id, song_id, user_id, ))
-	return username
+def did_not_like (user_id, mood, song_id):
+	# user_id = find_user_id ( username )
+	mood_id = find_mood_id ( mood )
+	cursor.execute("delete from mapmoods where mood_id =%s AND user_id = %s order by rand() limit 1", (mood_id, user_id, ))
+	cnx.commit()
+	# Finding new song to play
+	new_song_id = find_song_id ( mood_id, user_id )
+	print(new_song_id)
+	return new_song_id
