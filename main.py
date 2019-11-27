@@ -18,8 +18,6 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 cnx = mysql.connector.connect(user = user, password = password, host = '127.0.0.1', database ='moodplayer')
 cursor = cnx.cursor()
 
-print(message)
-
 @app.route("/")
 def home():
 	# path = "/home/utkarsh/Pictures/parallel.jpg"
