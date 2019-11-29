@@ -12,14 +12,49 @@
           background-color: black;
           width: 100%;
           height: auto;
-          color:cyan;
+          color:white;
           display: flex;
           flex-direction: row;
           justify-content: center;
         }
         .formBack{
-          
+          /* background-image:url("/home/aman/Desktop/Emotion-based-Music-Player/images/spencer-imbrock-JAHdPHMoaEA-unsplash.jpg"); */
+          width: cover;
+          height:auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          padding: 5%;
         }
+        form{
+          background: black;
+          height: 400px;
+          width: 500px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .formInput{
+          width:80%;
+          height: 12%;
+          margin: 4% auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+        #myFileInput{
+          width: 50px;
+          color: brown;
+        }
+        .formInputChild{
+          width:60%;
+          height:40px;
+        }
+        .browse{
+          margin-left: 10%;
+        }
+      
       </style>
   </head>
   <body>
@@ -30,14 +65,16 @@
 	<!-- <button id="snap">Snap Photo</button> -->
 	<!-- <canvas id="canvas" width="640" height="480"></canvas> -->
       <div class="formBack">
+       
         <form method="POST" id = "myForm" action="/song" enctype="multipart/form-data">
-          <input id="username" name="username" type="text">
-          <input id="myFileInput" name="file" type="file" accept="image/*;" capture="camera">
+          <div class="formInput">
+            <input class="formInputChild 1" id="username" name="username" type="text" placeholder="UserName" required>
+            <input  class="formInputChild browse" type="file" name="file" value="fileupload" id="fileupload" accept="image/*;" capture="camera">
+          </div>
           <!-- <input type="file" name="file"  accept="image/*"> -->
-          <input type="submit" id="snap" >Submit</button>
+          <input class="formInput" type="submit" id="snap" >Submit</button>
         </form>
       </div>
-    <p> It is Fun! </p>
 
   </body>
 </html>
