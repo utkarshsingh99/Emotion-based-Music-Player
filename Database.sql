@@ -7,7 +7,6 @@ CREATE DATABASE IF NOT EXISTS `moodplayer`;
 use `moodplayer`;
 
 DROP TABLE IF EXISTS `songs`;
-DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `moods`;
 DROP TABLE IF EXISTS `mapmoods`;
 
