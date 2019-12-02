@@ -24,11 +24,11 @@
           display: flex;
           flex-direction: row;
           justify-content: center;
-          margin-top: 2%;
+          margin-top: 6%;
         }
-        form{
+        .myform{
           background: black;
-          height: 400px;
+          height: 300px;
           width: 500px;
           display: flex;
           flex-direction: column;
@@ -65,15 +65,18 @@
 	<!-- <button id="snap">Snap Photo</button> -->
 	<!-- <canvas id="canvas" width="640" height="480"></canvas> -->
       <div class="formBack">
-        <form method="POST" id = "myForm" action="/song" enctype="multipart/form-data">
+        <form  class = "myform" method="POST" id = "myForm" action="/song" enctype="multipart/form-data">
           <div class="formInput">
-            <input class="formInputChild 1" id="username" name="username" value="" type="text" placeholder="UserName" >
+            <input class="formInputChild 1" id="username" name="username" value="" type="text" placeholder="UserName" required>
             <input  class="formInputChild browse" type="file" name="file" value="fileupload" id="fileupload" accept="image/*;" capture="camera">
           </div>
           <!-- <input type="file" name="file"  accept="image/*"> -->
           <input class="formInput" type="submit" id="snap" >Submit</button>
-          <button class="formInput" type="submit" formmethod="GET" formaction="/register">Register</button>
+          
         </form>
+        <form method="GET" id = "myForm" action="/register" enctype="multipart/form-data">
+        <button class="formInput" type="submit">Register</button>
+          </form>
       </div>
   </body>
 </html>
