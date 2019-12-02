@@ -3,16 +3,60 @@
 
 <head>
     <meta charset="utf-8">
+    <style>
+	body{
+          padding: 0;
+          margin: 0;
+        }
+        .heading{
+          background-color: black;
+          width: 100%;
+          height: auto;
+          color:white;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+        }
+	.formBack{
+          width: cover;
+          height:auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+	  margin-top:5%;
+        }
+	form{
+          background: black;
+          height: 300px;
+          width: 500px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+	.inputs{
+	 width:60%;
+     height: 50px;
+     align-content: center;
+     margin: 2% auto;
+    }
+    </style>
     <title>Mood Swong</title>
 </head>
 
 <body>
-    <h1> Welcome! Register </h1>
+	<div class="heading">
+        <h1> Welcome! Register </h1>
+      </div>
+     <div class="formBack">
     <form method="POST" action="/register">
+	<div class="inputs" placeholder="Username" required>
         <input type="text">
+	</div>
+	<div class="inputs submitbutton" >
+	<input type="submit">
+	</div>
     </form>
-    <p> It is Fun! </p>
-
+     </div>
 </body>
 
 </html>
