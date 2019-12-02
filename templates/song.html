@@ -20,14 +20,18 @@
   </head>
 
   <body>
-    <h1> Personalized Playlist</h1>
-    <h4 id="song">{{songname}}</h4>
-    <p> Hi <b>{{name}}!</b> You seem <b id="mood">{{mood}}</b>. What do you think of the song <b id="anotherSongName">{{songname}}</b>?</p>
-      <div id="tracks-container"></div>
-      <button class="btn btn-success" id="unlike">I don't like this song!</button>
-      <button class="btn btn-warning" id="like">Good job! I liked the song!</button>
-      <p style="display: none" id="user_id">{{user_id}}</p>
-      <p style="display: none" id="song_id">{{song_id}}</p>
+    <div class="container"></body>
+      <h1> Personalized Playlist</h1>
+      <h4 id="song">{{songname}}</h4>
+      <p> Hi <b>{{name}}!</b> You seem <b id="mood">{{mood}}</b>. What do you think of the song <b id="anotherSongName">{{songname}}</b>?</p>
+      <div class="row" id="tracks-container"></div>
+      <div class="row">
+        <button class="btn btn-success" id="unlike">I don't like this song!</button>
+        <button class="btn btn-warning" id="like">Good job! I liked the song!</button>
+        <p style="display: none" id="user_id">{{user_id}}</p>
+        <p style="display: none" id="song_id">{{song_id}}</p>
+      </div>
+      </div>
   </body>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
       crossorigin="anonymous"></script>

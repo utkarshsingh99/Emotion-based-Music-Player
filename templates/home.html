@@ -59,22 +59,21 @@
   </head>
   <body>
       <div class="heading">
-          <h1> My First Try Using Flask </h1>
+          <h1> Welcome to Mood Player </h1>
       </div>
     <!-- <video id="video" width="640" height="480" autoplay></video> -->
 	<!-- <button id="snap">Snap Photo</button> -->
 	<!-- <canvas id="canvas" width="640" height="480"></canvas> -->
       <div class="formBack">
-       
         <form method="POST" id = "myForm" action="/song" enctype="multipart/form-data">
           <div class="formInput">
-            <input class="formInputChild 1" id="username" name="username" type="text" placeholder="UserName" required>
+            <input class="formInputChild 1" id="username" name="username" value="" type="text" placeholder="UserName" >
             <input  class="formInputChild browse" type="file" name="file" value="fileupload" id="fileupload" accept="image/*;" capture="camera">
           </div>
           <!-- <input type="file" name="file"  accept="image/*"> -->
           <input class="formInput" type="submit" id="snap" >Submit</button>
+          <button class="formInput" type="submit" formmethod="GET" formaction="/register">Register</button>
         </form>
       </div>
-
   </body>
 </html>

@@ -53,11 +53,12 @@ def song():
 			mood_id = find_mood_id ( mood )			
 
 			(user_id, name) = find_user_id (username )
-			
+			print('Found user')
+			print(user_id, name)
 			song_id = find_song_id ( mood_id, user_id )
 
 			songname = find_song ( song_id )
-
+			print(songname)
 			return render_template("song.html", songname=songname, mood = mood, song_id = song_id, user_id = user_id, name = name)
 	else:
 		return Response(500)
@@ -85,6 +86,15 @@ def unlike():
 		songname = find_song ( new_song_id )
 		return Response( songname )
 
+@app.route('/liked', methods=['GET', 'POST'])
+def like():
+	if request.method == 'POST':
+		data = dict(request.form)
+		print('The user liked the following: ', data)
+		mood_id = find_mood_id( data['mood'])
+		new_song_id = find_song_id( mood_id, data['user_id'])
+		songname = find_song( new_song_id )
+		return Response ( songname )
 
 if __name__ == "__main__":
     app.run(debug=True)

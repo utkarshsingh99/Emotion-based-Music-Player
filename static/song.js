@@ -20,6 +20,21 @@ $('#unlike').on('click', (e) => {
     })
 })
 
+$('#like').on('click', (e) => {
+    let user_id = $('#user_id').text()
+    let song_id = $('#song_id').text()
+    let mood = $('#mood').text()
+    $.post('/liked', { user_id, song_id, mood }, (response) => {
+        console.log(response)
+        if (response != '' && response != undefined && response != null) {
+            let songname = response;
+            playSong(songname)
+            $('#song').text(songname)
+            $('#anotherSongName').text(songname)
+        }
+    })
+})
+
 const playSong = (value) => {
     if(value == undefined || value == '' || value == null)
         return ;
