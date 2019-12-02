@@ -70,3 +70,11 @@ def did_not_like (user_id, mood, song_id):
 	new_song_id = find_song_id ( mood_id, user_id )
 	print(new_song_id)
 	return new_song_id
+
+def did_like ( user_id, mood_id ):
+	cursor.execute("select song_id from mapmoods where user_id=%s and mood_id=%s order by rand()")
+	song_id = cursor.fetchall()[0][0]
+	print(song_id)
+	songname = find_song ( song_id )
+	print( songname )
+	return songname
